@@ -9,6 +9,7 @@ const TodoItem = ({
   onStartEdit,
   onStopEdit,
   onUpdate,
+  onUpdateDueDate,
   onAddSubtask,
   onToggleSubtask,
   onDeleteSubtask
@@ -16,6 +17,7 @@ const TodoItem = ({
   const [editText, setEditText] = useState(task.text);
   const [subtaskText, setSubtaskText] = useState('');
   const [showSubtasks, setShowSubtasks] = useState(false);
+  const [showDueDatePicker, setShowDueDatePicker] = useState(false);
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
@@ -47,8 +49,43 @@ const TodoItem = ({
   const completedSubtasks = task.subtasks.filter(subtask => subtask.completed).length;
   const totalSubtasks = task.subtasks.length;
 
+  // Calculate due date status
+  const getDueDateStatus = () => {
+    if (!task.dueDate) return null;
+    
+    const now = new Date();
+    const dueDate = new Date(task.dueDate);
+    const daysUntilDue = Math.ceil((dueDate - now) / (1000 * 60 * 60 * 24));
+    
+    if (dueDate < now) return 'overdue';
+    if (daysUntilDue <= 1) return 'urgent';
+    if (daysUntilDue <= 3) return 'soon';
+    return 'normal';
+  };
+
+  const dueDateStatus = getDueDateStatus();
+
+  const formatDueDate = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffTime = date - now;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (diffDays < 0) {
+      return `${Math.abs(diffDays)} day${Math.abs(diffDays) !== 1 ? 's' : ''} overdue`;
+    } else if (diffDays === 0) {
+      return 'Due today';
+    } else if (diffDays === 1) {
+      return 'Due tomorrow';
+    } else if (diffDays <= 7) {
+      return `Due in ${diffDays} days`;
+    } else {
+      return date.toLocaleDateString();
+    }
+  };
+
   return (
-    <div className={`todo-item ${task.completed ? 'completed' : ''}`}>
+    <div className={`todo-item ${task.completed ? 'completed' : ''} ${dueDateStatus ? `due-${dueDateStatus}` : ''}`}>
       <div className="task-main">
         <div className="task-checkbox">
           <input
@@ -85,6 +122,47 @@ const TodoItem = ({
               {task.text}
             </div>
           )}
+          
+          {/* Due Date Display */}
+          {task.dueDate && (
+            <div className="due-date-display">
+              <span className={`due-date-badge ${dueDateStatus}`}>
+                📅 {formatDueDate(task.dueDate)}
+              </span>
+              <button
+                className="edit-due-date-btn"
+                onClick={() => setShowDueDatePicker(!showDueDatePicker)}
+                title="Edit due date"
+              >
+                ✏️
+              </button>
+            </div>
+          )}
+          
+          {/* Due Date Picker */}
+          {showDueDatePicker && (
+            <div className="due-date-picker">
+              <input
+                type="datetime-local"
+                value={task.dueDate || ''}
+                onChange={(e) => {
+                  onUpdateDueDate(task.id, e.target.value);
+                  setShowDueDatePicker(false);
+                }}
+                className="due-date-input"
+                min={new Date().toISOString().slice(0, 16)}
+              />
+              <button
+                className="remove-due-date-btn"
+                onClick={() => {
+                  onUpdateDueDate(task.id, null);
+                  setShowDueDatePicker(false);
+                }}
+              >
+                Remove Due Date
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="task-actions">
@@ -95,6 +173,15 @@ const TodoItem = ({
               title="Toggle subtasks"
             >
               📋 {completedSubtasks}/{totalSubtasks}
+            </button>
+          )}
+          {!task.dueDate && (
+            <button
+              className="add-due-date-btn"
+              onClick={() => setShowDueDatePicker(!showDueDatePicker)}
+              title="Add due date"
+            >
+              📅
             </button>
           )}
           <button

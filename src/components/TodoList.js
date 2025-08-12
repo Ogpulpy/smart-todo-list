@@ -7,6 +7,7 @@ const TodoList = ({
   onToggleTask,
   onDeleteTask,
   onUpdateTaskText,
+  onUpdateTaskDueDate,
   onAddSubtask,
   onToggleSubtask,
   onDeleteSubtask
@@ -48,6 +49,7 @@ const TodoList = ({
           onStartEdit={startEditing}
           onStopEdit={stopEditing}
           onUpdate={handleUpdateTask}
+          onUpdateDueDate={onUpdateTaskDueDate}
           onAddSubtask={onAddSubtask}
           onToggleSubtask={onToggleSubtask}
           onDeleteSubtask={onDeleteSubtask}

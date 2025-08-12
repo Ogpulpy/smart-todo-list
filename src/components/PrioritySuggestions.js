@@ -6,6 +6,36 @@ const PrioritySuggestions = ({ suggestions }) => {
     return null;
   }
 
+  const getPriorityIcon = (priority) => {
+    switch (priority) {
+      case 'critical':
+        return '🚨';
+      case 'high':
+        return '🔥';
+      case 'medium':
+        return '⚡';
+      case 'low':
+        return '⚡';
+      default:
+        return '📋';
+    }
+  };
+
+  const getPriorityText = (priority) => {
+    switch (priority) {
+      case 'critical':
+        return 'Critical Priority';
+      case 'high':
+        return 'High Priority';
+      case 'medium':
+        return 'Medium Priority';
+      case 'low':
+        return 'Low Priority';
+      default:
+        return 'Normal Priority';
+    }
+  };
+
   return (
     <div className="priority-suggestions">
       <div className="suggestions-header">
@@ -18,7 +48,7 @@ const PrioritySuggestions = ({ suggestions }) => {
           <div key={suggestion.taskId} className="suggestion-item">
             <div className="suggestion-header">
               <span className={`priority-badge ${suggestion.priority}`}>
-                {suggestion.priority === 'high' ? '🔥 High Priority' : '⚡ Low Priority'}
+                {getPriorityIcon(suggestion.priority)} {getPriorityText(suggestion.priority)}
               </span>
             </div>
             

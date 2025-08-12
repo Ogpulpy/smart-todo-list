@@ -1,6 +1,6 @@
 .todo-item {
-  background: white;
-  border: 2px solid #e9ecef;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
   border-radius: 15px;
   padding: 1.5rem;
   transition: all 0.3s ease;
@@ -14,12 +14,33 @@
 
 .todo-item.completed {
   opacity: 0.7;
-  background: #f8f9fa;
+  background: var(--hover-bg);
 }
 
 .todo-item.completed .task-text {
   text-decoration: line-through;
-  color: #6c757d;
+  color: var(--text-secondary);
+}
+
+/* Due Date Status Styles */
+.todo-item.due-overdue {
+  border-left: 4px solid var(--danger-color);
+  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(220, 53, 69, 0.1) 100%);
+}
+
+.todo-item.due-urgent {
+  border-left: 4px solid var(--warning-color);
+  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255, 193, 7, 0.1) 100%);
+}
+
+.todo-item.due-soon {
+  border-left: 4px solid #17a2b8;
+  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(23, 162, 184, 0.1) 100%);
+}
+
+.todo-item.due-normal {
+  border-left: 4px solid #28a745;
+  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(40, 167, 69, 0.1) 100%);
 }
 
 .task-main {
@@ -48,7 +69,7 @@
 
 .task-text {
   font-size: 1.1rem;
-  color: #212529;
+  color: var(--text-primary);
   cursor: pointer;
   padding: 0.5rem 0;
   border-radius: 8px;
@@ -56,7 +77,105 @@
 }
 
 .task-text:hover {
-  background-color: #f8f9fa;
+  background-color: var(--hover-bg);
+}
+
+/* Due Date Display */
+.due-date-display {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.due-date-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.due-date-badge.overdue {
+  background: var(--danger-color);
+  color: white;
+}
+
+.due-date-badge.urgent {
+  background: var(--warning-color);
+  color: #212529;
+}
+
+.due-date-badge.soon {
+  background: #17a2b8;
+  color: white;
+}
+
+.due-date-badge.normal {
+  background: #28a745;
+  color: white;
+}
+
+.edit-due-date-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.edit-due-date-btn:hover {
+  background-color: var(--hover-bg);
+  color: var(--text-primary);
+}
+
+/* Due Date Picker */
+.due-date-picker {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: var(--input-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.due-date-input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.due-date-input:focus {
+  border-color: #667eea;
+  outline: none;
+}
+
+.remove-due-date-btn {
+  background: var(--danger-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.remove-due-date-btn:hover {
+  background: #c53030;
 }
 
 .task-actions {
@@ -67,7 +186,8 @@
 
 .edit-btn,
 .delete-btn,
-.subtasks-toggle {
+.subtasks-toggle,
+.add-due-date-btn {
   background: none;
   border: none;
   padding: 0.5rem;
@@ -95,6 +215,15 @@
   background-color: #e1bee7;
 }
 
+.add-due-date-btn {
+  color: var(--text-secondary);
+}
+
+.add-due-date-btn:hover {
+  background-color: var(--hover-bg);
+  color: #667eea;
+}
+
 /* Edit Form */
 .edit-form {
   display: flex;
@@ -108,6 +237,8 @@
   border-radius: 8px;
   font-size: 1rem;
   outline: none;
+  background: var(--card-bg);
+  color: var(--text-primary);
 }
 
 .edit-actions {
@@ -145,7 +276,7 @@
 
 /* Subtasks Section */
 .subtasks-section {
-  border-top: 1px solid #e9ecef;
+  border-top: 1px solid var(--border-color);
   padding-top: 1rem;
 }
 
@@ -158,7 +289,7 @@
 
 .subtasks-header h4 {
   margin: 0;
-  color: #495057;
+  color: var(--text-primary);
   font-size: 1rem;
   font-weight: 500;
 }
@@ -168,14 +299,14 @@
   border: none;
   cursor: pointer;
   font-size: 1.2rem;
-  color: #6c757d;
+  color: var(--text-secondary);
   padding: 0.25rem;
   border-radius: 4px;
   transition: background-color 0.2s ease;
 }
 
 .toggle-subtasks-btn:hover {
-  background-color: #f8f9fa;
+  background-color: var(--hover-bg);
 }
 
 .subtasks-list {
@@ -187,7 +318,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.5rem 0;
-  border-bottom: 1px solid #f1f3f4;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .subtask-item:last-child {
@@ -204,18 +335,18 @@
 .subtask-text {
   flex: 1;
   font-size: 0.95rem;
-  color: #495057;
+  color: var(--text-primary);
 }
 
 .subtask-text.completed {
   text-decoration: line-through;
-  color: #6c757d;
+  color: var(--text-secondary);
 }
 
 .delete-subtask-btn {
   background: none;
   border: none;
-  color: #dc3545;
+  color: var(--danger-color);
   cursor: pointer;
   font-size: 1.2rem;
   font-weight: bold;
@@ -243,11 +374,13 @@
 .subtask-input {
   flex: 1;
   padding: 0.75rem;
-  border: 2px solid #e9ecef;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   font-size: 0.95rem;
   outline: none;
   transition: border-color 0.2s ease;
+  background: var(--input-bg);
+  color: var(--text-primary);
 }
 
 .subtask-input:focus {
@@ -301,6 +434,15 @@
   }
   
   .add-subtask-btn {
+    width: 100%;
+  }
+  
+  .due-date-picker {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .remove-due-date-btn {
     width: 100%;
   }
 }

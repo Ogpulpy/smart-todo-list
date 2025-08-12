@@ -11,26 +11,82 @@
 .task-input {
   flex: 1;
   padding: 15px 20px;
-  border: 2px solid #e9ecef;
+  border: 2px solid var(--border-color);
   border-radius: 25px;
   font-size: 1rem;
   outline: none;
   transition: all 0.3s ease;
-  background: #f8f9fa;
+  background: var(--input-bg);
+  color: var(--text-primary);
 }
 
 .task-input:focus {
   border-color: #667eea;
-  background: white;
+  background: var(--card-bg);
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 .task-input::placeholder {
-  color: #adb5bd;
+  color: var(--text-secondary);
+}
+
+.date-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.date-toggle {
+  background: var(--input-bg);
+  border: 2px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.75rem;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.date-toggle:hover {
+  background: var(--hover-bg);
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.date-toggle.has-date {
+  background: #667eea;
+  border-color: #667eea;
+  color: white;
+}
+
+.clear-date {
+  background: var(--danger-color);
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clear-date:hover {
+  background: #c53030;
+  transform: scale(1.1);
 }
 
 .add-btn {
-  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  background: var(--success-gradient);
   color: white;
   border: none;
   padding: 15px 30px;
@@ -54,6 +110,56 @@
   transform: none;
 }
 
+/* Date Picker Styles */
+.date-picker-container {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.date-picker {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.date-picker:focus {
+  border-color: #667eea;
+  outline: none;
+}
+
+.quick-dates {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.quick-date-btn {
+  background: var(--input-bg);
+  border: 2px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.quick-date-btn:hover {
+  background: var(--hover-bg);
+  border-color: #667eea;
+  color: #667eea;
+}
+
 @media (max-width: 768px) {
   .input-container {
     flex-direction: column;
@@ -64,7 +170,19 @@
     width: 100%;
   }
   
+  .date-controls {
+    align-self: flex-start;
+  }
+  
   .add-btn {
     width: 100%;
+  }
+  
+  .quick-dates {
+    flex-direction: column;
+  }
+  
+  .quick-date-btn {
+    text-align: center;
   }
 }

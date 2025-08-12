@@ -1,5 +1,5 @@
 .priority-suggestions {
-  background: linear-gradient(135deg, #f8f9ff 0%, #e8f4fd 100%);
+  background: linear-gradient(135deg, var(--hover-bg) 0%, var(--input-bg) 100%);
   border: 2px solid #667eea;
   border-radius: 15px;
   padding: 1.5rem;
@@ -13,14 +13,14 @@
 }
 
 .suggestions-header h3 {
-  color: #495057;
+  color: var(--text-primary);
   margin: 0 0 0.5rem 0;
   font-size: 1.3rem;
   font-weight: 600;
 }
 
 .suggestions-header p {
-  color: #6c757d;
+  color: var(--text-secondary);
   margin: 0;
   font-size: 1rem;
 }
@@ -33,7 +33,7 @@
 }
 
 .suggestion-item {
-  background: white;
+  background: var(--card-bg);
   border-radius: 10px;
   padding: 1rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -54,10 +54,22 @@
   letter-spacing: 0.5px;
 }
 
+.priority-badge.critical {
+  background: linear-gradient(135deg, #dc3545 0%, #c53030 100%);
+  color: white;
+  box-shadow: 0 2px 10px rgba(220, 53, 69, 0.4);
+}
+
 .priority-badge.high {
   background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
   color: white;
   box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+}
+
+.priority-badge.medium {
+  background: linear-gradient(135deg, #ffa726 0%, #ff9800 100%);
+  color: white;
+  box-shadow: 0 2px 10px rgba(255, 167, 38, 0.3);
 }
 
 .priority-badge.low {
@@ -67,7 +79,7 @@
 }
 
 .suggested-subtasks h4 {
-  color: #495057;
+  color: var(--text-primary);
   margin: 0 0 0.75rem 0;
   font-size: 1rem;
   font-weight: 500;
@@ -79,7 +91,7 @@
 }
 
 .suggested-subtask {
-  color: #6c757d;
+  color: var(--text-secondary);
   margin-bottom: 0.5rem;
   font-size: 0.95rem;
   line-height: 1.4;
@@ -92,18 +104,18 @@
 .suggestions-footer {
   text-align: center;
   padding-top: 1rem;
-  border-top: 1px solid #e9ecef;
+  border-top: 1px solid var(--border-color);
 }
 
 .suggestions-footer p {
   margin: 0;
-  color: #6c757d;
+  color: var(--text-secondary);
   font-size: 0.95rem;
   line-height: 1.5;
 }
 
 .suggestions-footer strong {
-  color: #495057;
+  color: var(--text-primary);
 }
 
 /* Mobile Responsiveness */
